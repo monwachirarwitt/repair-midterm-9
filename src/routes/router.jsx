@@ -1,28 +1,33 @@
-
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Login from "../page/loginpage";
-import Register from "../page/Register";
-import TodolistPage from "../page/TodolistPage";
 
+import TodolistPage from "../page/TodolistPage";
+import PageNotFound from "../page/PageNotFound";
+import ProtectedRoute from "./ProtectedRoute"; 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element:<MainLayout />,
+        element: <MainLayout />,
         children: [
             {
-                index:true,
-                element:<Login />,
+                index: true,
+                element: <Login />,
+            },
+
+            {
+                path: "todolist",
+                element: (
+                    <ProtectedRoute>
+                        <TodolistPage />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path:"register",
-                element:<Register />,
-            },
-            {
-                path:"todolist",
-                element:<TodolistPage  />,
-            },
+                path: "*",
+                element: <PageNotFound />,
+            }
         ],
     },
 ]);
